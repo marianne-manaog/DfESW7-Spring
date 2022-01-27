@@ -120,9 +120,23 @@ public class UserControllerSystemIntegrationTest {
 	}
 
 	@Test
-	public void getUserByIdTest() {
-		// TODO: Implement me
-		fail("Implement me");
+	public void getUserByIdTest() throws Exception {
+		
+		// Given
+		Long userId = 2L;
+		User expectedUser = new User(userId, "fred", "see", 25);
+			
+		// Configure mock request
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.request(HttpMethod.GET, "/user/" + userId);
+		mockRequest.contentType(MediaType.APPLICATION_JSON);
+		mockRequest.content(objectMapper.writeValueAsString(userId));
+		mockRequest.accept(MediaType.APPLICATION_JSON);
+			
+		String userJson = objectMapper.writeValueAsString(expectedUser);
+		ResultMatcher statusMatcher = MockMvcResultMatchers.status().isOk();
+		ResultMatcher contentMatcher = MockMvcResultMatchers.content().json(userJson);
+		
+		mockMvc.perform(mockRequest).andExpect(statusMatcher).andExpect(contentMatcher);
 	}
 
 	@Test
