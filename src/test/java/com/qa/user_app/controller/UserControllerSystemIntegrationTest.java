@@ -160,6 +160,6 @@ public class UserControllerSystemIntegrationTest {
 	@Test
 	public void deleteUserTest() {
 		// TODO: Implement me
-		fail("Implement me");
+		fail("Implement this test");
 	}
 }
